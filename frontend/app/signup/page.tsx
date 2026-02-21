@@ -11,16 +11,16 @@ export default function SignupPage() {
     const [error, setError] = useState('');
     const router = useRouter();
 
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
 
         try {
-            const response = await fetch(`${API_URL}/api/auth/register`, {
+            const response = await fetch('/api/auth/register', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json' 
+                },
                 body: JSON.stringify({ username, email, password }),
             });
 
@@ -30,7 +30,7 @@ export default function SignupPage() {
                 alert('Account created successfully! Please login.');
                 router.push('/login');
             } else {
-                setError(data.error || 'Signup failed');
+                setError(data.message || 'Signup failed');
             }
         } catch (err) {
             setError('Something went wrong. Please try again.');
@@ -41,8 +41,12 @@ export default function SignupPage() {
         <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white flex items-center justify-center p-4">
             <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 space-y-6">
                 <div className="text-center">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-2">Create Account</h1>
-                    <p className="text-gray-500">Join ShineShelf and start your reading journey</p>
+                    <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                        Create Account
+                    </h1>
+                    <p className="text-gray-500">
+                        Join ShineShelf and start your reading journey
+                    </p>
                 </div>
 
                 {error && (
@@ -53,7 +57,9 @@ export default function SignupPage() {
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Username
+                        </label>
                         <input
                             type="text"
                             value={username}
@@ -65,7 +71,9 @@ export default function SignupPage() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Email Address
+                        </label>
                         <input
                             type="email"
                             value={email}
@@ -77,7 +85,9 @@ export default function SignupPage() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Password
+                        </label>
                         <input
                             type="password"
                             value={password}
@@ -98,7 +108,10 @@ export default function SignupPage() {
 
                 <div className="text-center text-sm text-gray-500">
                     Already have an account?{' '}
-                    <Link href="/login" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                    <Link
+                        href="/login"
+                        className="font-semibold text-indigo-600 hover:text-indigo-500"
+                    >
                         Log in
                     </Link>
                 </div>
